@@ -5,6 +5,7 @@ public class Player {
 	private int timer;
 	private int highScore;
 	private static Player instance;
+	private boolean hasLost;
 	private Player() {
 		lives=3;
 		score=0;
@@ -12,12 +13,19 @@ public class Player {
 		highScore=0;
 	}
 	
-	public Player getInstance()
+	
+	public static Player getInstance()
 	{
 		if(instance==null)
-			return new Player();
-		else
-			return instance;
+			instance=new Player();
+		return instance;
+	}
+	
+	public boolean isHasLost() {
+		return hasLost;
+	}
+	public void setHasLost(boolean hasLost) {
+		this.hasLost = hasLost;
 	}
 	
 	public int getLives() {

@@ -43,6 +43,12 @@ public abstract class GameObject implements GameObjectUtil {
 	public int maxHeight() {
 		return maxHeight;
 	}
+	public void slice()
+	{
+		this.isSliced=true;
+		player.setScore(player.getScore()+10);
+	}
+	
 	
 	
 }

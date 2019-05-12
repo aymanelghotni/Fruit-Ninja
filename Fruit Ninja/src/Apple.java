@@ -4,6 +4,7 @@ public class Apple extends GameObject {
 		this.type="Apple";
 		this.isMovedOffScreen=false;
 		this.isSliced=false;
+		player=player.getInstance();
 		this.speed=speed;
 		//this.maxHeight
 		//this.xPos

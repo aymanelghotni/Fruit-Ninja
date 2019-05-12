@@ -7,40 +7,53 @@ public class GameController {
 	List<GameObject> objects;
 	GameObjectFactory factory;
 	Random random;
+	String[] types= {"Apple","Melon","Orange","FatalBomb","DangerBomb"};
+	int difficulty;
+	float speedMin;
+	float speedMax;
+	int difficultyIterator;
 	
 	
-	public GameController() {
-		player=player.getInstance();
+	public GameController(int difficulty) {
+		player= player.getInstance();
 		objects=new ArrayList<GameObject>();
 		factory=new GameObjectFactory();
 		random=new Random();
+		this.difficulty=difficulty;
 	}
 	
 	public void slice(GameObject obj) {
-		obj.isSliced=true;
-		if(obj instanceof FatalBomb)
-		{
-			player.setLives(0);
-		}
-		if(obj instanceof DangerBomb)
-		{
-			player.setLives(player.getLives()-1);
-		}
-		if(obj instanceof Orange || obj instanceof Melon || obj instanceof Apple)
-		{
-			player.setScore(player.getScore()+10);
-		}
+		obj.slice();
+		if(player.getLives()==0)
+			player.setHasLost(true);
 		
 	}
 	
 	public void randomizeGameObjects()
 	{
 		objects.clear();
-		
-		objects.add(factory.makeGameObject("Melon", 0.15f+random.nextFloat()*(0.2f)));
-		objects.add(factory.makeGameObject("Apple", 0.15f+random.nextFloat()*(0.2f)));
-		objects.add(factory.makeGameObject("Orange", 0.15f+random.nextFloat()*(0.2f)));
-		objects.add(factory.makeGameObject("FatalBomb", 0.15f+random.nextFloat()*(0.2f)));
-		objects.add(factory.makeGameObject("DangerBomb", 0.15f+random.nextFloat()*(0.2f)));
+		if(difficulty==0)
+		{
+			speedMin=0.15f;
+			speedMax=0.35f;
+			difficultyIterator=3;
+		}
+		else if(difficulty==1)
+		{
+			speedMin=0.2f;
+			speedMax=0.4f;
+			difficultyIterator=4;
+		}
+		else if(difficulty==2)
+		{
+			speedMin=0.25f;
+			speedMax=0.45f;
+			difficultyIterator=5;
+		}
+		for(int i=0; i<difficultyIterator;i++)
+		{
+			objects.add(factory.makeGameObject(types[random.nextInt(4)], speedMin+random.nextFloat()*(speedMax-speedMin)));
+		}
+	
 	}
 }

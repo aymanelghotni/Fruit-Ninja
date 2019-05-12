@@ -5,9 +5,11 @@ public class Orange extends GameObject{
 		this.isMovedOffScreen=false;
 		this.isSliced=false;
 		this.speed=speed;
+		player=player.getInstance();
 		//this.maxHeight
 		//this.xPos
 		//this.yPos
 	}
+	
 
 }

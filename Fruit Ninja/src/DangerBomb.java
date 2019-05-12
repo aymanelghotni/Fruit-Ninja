@@ -5,9 +5,14 @@ public class DangerBomb extends GameObject {
 		this.isMovedOffScreen=false;
 		this.isSliced=false;
 		this.speed=speed;
+		player=player.getInstance();
 		//this.maxHeight
 		//this.xPos
 		//this.yPos
 	}
-
+	public void slice()
+	{
+		this.isSliced=true;
+		player.setLives(player.getLives()-1);
+	}
 }

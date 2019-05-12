@@ -5,13 +5,16 @@ import java.util.Random;
 public class Test {
 	public static void main(String[] args)
 	{
-		List<Integer> list=new ArrayList<Integer>();
-		Random r=new Random();
-		int x=100;
-		while(x--!=0)
-		{
-			
-		}
+		GameController game= new GameController(0);
+		game.randomizeGameObjects();
+		game.slice(game.objects.get(0));
+		game.slice(game.objects.get(1));
+		game.slice(game.objects.get(2));
+		game.slice(game.objects.get(3));
+		game.slice(game.objects.get(4));
+		System.out.println(game.player.getScore()+" "+game.player.getLives());
+		
+		
 		
 		
 	}

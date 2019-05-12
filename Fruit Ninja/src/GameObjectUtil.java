@@ -9,5 +9,6 @@ public interface GameObjectUtil {
 		public boolean isSliced();
 		public boolean ifMovedOffScreen();
 		public Image[] getImages();
+		public void slice();
 		
 }
