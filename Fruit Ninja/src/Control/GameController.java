@@ -1,6 +1,9 @@
+package Control;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import GameObjects.GameObject;
+import GameObjects.GameObjectFactory;
 
 public class GameController {
 	Player player;
@@ -8,6 +11,7 @@ public class GameController {
 	GameObjectFactory factory;
 	Random random;
 	String[] types= {"Apple","Melon","Orange","FatalBomb","DangerBomb"};
+	
 	int difficulty;
 	float speedMin;
 	float speedMax;
@@ -52,7 +56,7 @@ public class GameController {
 		}
 		for(int i=0; i<difficultyIterator;i++)
 		{
-			objects.add(factory.makeGameObject(types[random.nextInt(4)], speedMin+random.nextFloat()*(speedMax-speedMin)));
+			objects.add(factory.makeGameObject(types[random.nextInt(4)], speedMin+random.nextFloat()*(speedMax-speedMin),200+random.nextInt(400),100+random.nextInt(700)));
 		}
 	
 	}

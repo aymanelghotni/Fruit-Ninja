@@ -15,7 +15,8 @@ public class Game extends StateBasedGame{
 	public Game(String name) {
 		super(name);
 		this.addState(new MainMenu(mainmenu));
-		this.enterState(mainmenu);
+		this.addState(new Play(play));
+		this.enterState(play);
 	}
 
 	@Override
@@ -31,6 +32,7 @@ public class Game extends StateBasedGame{
 		{
 			appgc=new AppGameContainer(new Game(gamename));
 			appgc.setDisplayMode(1200,800, false);
+			//appgc.setMouseGrabbed(true);
 			appgc.start();
 		}
 		catch(SlickException e)

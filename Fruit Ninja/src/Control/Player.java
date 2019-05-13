@@ -1,4 +1,4 @@
-
+package Control;
 public class Player {
 	private int lives;
 	private int score;

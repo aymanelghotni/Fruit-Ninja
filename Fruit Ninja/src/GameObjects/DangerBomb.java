@@ -1,14 +1,14 @@
-
+package GameObjects;
 public class DangerBomb extends GameObject {
-	public DangerBomb(float speed) {
+	public DangerBomb(float speed,int maxHeight,float xPos) {
 		this.type="DangerBomb";
+		player=player.getInstance();
 		this.isMovedOffScreen=false;
 		this.isSliced=false;
 		this.speed=speed;
-		player=player.getInstance();
-		//this.maxHeight
-		//this.xPos
-		//this.yPos
+		this.maxHeight=maxHeight;
+		this.xPos=xPos;
+		this.yPos=800;
 	}
 	public void slice()
 	{
