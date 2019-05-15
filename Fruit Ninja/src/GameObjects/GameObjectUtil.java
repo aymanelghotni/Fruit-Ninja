@@ -1,4 +1,6 @@
 package GameObjects;
+import java.awt.image.BufferedImage;
+
 import org.newdawn.slick.Image;
 
 public interface GameObjectUtil {
@@ -9,7 +11,7 @@ public interface GameObjectUtil {
 		public float getInitialSpeed();
 		public boolean isSliced();
 		public boolean ifMovedOffScreen();
-		public Image[] getImages();
+		public BufferedImage[] getImages();
 		public void slice();
 		public void setX(float xPos);
 		public void setY(float yPos);

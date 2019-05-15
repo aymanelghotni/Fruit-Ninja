@@ -1,6 +1,6 @@
 package GameObjects;
 public class GameObjectFactory {
-	public GameObject makeGameObject(String type,float speed,int maxHeight,float xPos)
+	public GameObject makeGameObject(String type,int speed,int maxHeight,float xPos)
 	{
 		if(type.equalsIgnoreCase("Melon"))
 			return new Melon(speed,maxHeight,xPos);

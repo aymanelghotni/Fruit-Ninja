@@ -1,4 +1,7 @@
 package GameObjects;
+import java.awt.image.BufferedImage;
+import java.util.Random;
+
 import org.newdawn.slick.Image;
 
 import Control.Player;
@@ -10,15 +13,17 @@ public abstract class GameObject implements GameObjectUtil {
 	protected float xPos;
 	protected float yPos;
 	protected float radius;
+	protected boolean xDirection;
+	Random random;
 	protected int maxHeight;
 	protected boolean hasReachedMaximumHeight;
-	protected float speed;
+	protected int speed;
 	protected boolean isSliced;
 	protected boolean isMovedOffScreen;
-	protected Image[] images;
+	protected BufferedImage[] images;
 	Player player;
 	@Override
-	public Image[] getImages() {
+	public BufferedImage[] getImages() {
 		
 		return images;
 	}
@@ -80,9 +85,15 @@ public abstract class GameObject implements GameObjectUtil {
 	
 	public void move()
 	{
-		if(yPos>maxHeight)
+		
+		if(yPos>maxHeight && !hasReachedMaximumHeight)
 		{
-			yPos-=speed;	
+			yPos-=speed;
+			if(xDirection)
+				xPos+=0.4*speed;
+			else
+				xPos-=0.4*speed;
+				
 		}
 		else
 		{
@@ -93,9 +104,21 @@ public abstract class GameObject implements GameObjectUtil {
 		if(hasReachedMaximumHeight && yPos<800)
 		{
 			yPos+=speed;
+			if(xDirection)
+				xPos+=0.4*speed;
+			else
+				xPos-=0.4*speed;
 		}
 			
+		if(yPos>=800)
+		{
+			isMovedOffScreen=true;
+		}
 		
+	}
+	
+	public float getRadius() {
+		return radius;
 	}
 	
 }

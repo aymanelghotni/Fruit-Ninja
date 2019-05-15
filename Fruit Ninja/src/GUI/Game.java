@@ -32,6 +32,7 @@ public class Game extends StateBasedGame{
 		{
 			appgc=new AppGameContainer(new Game(gamename));
 			appgc.setDisplayMode(1200,800, false);
+			appgc.setVSync(true);
 			//appgc.setMouseGrabbed(true);
 			appgc.start();
 		}

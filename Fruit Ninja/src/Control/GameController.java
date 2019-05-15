@@ -13,8 +13,8 @@ public class GameController {
 	String[] types= {"Apple","Melon","Orange","FatalBomb","DangerBomb"};
 	
 	int difficulty;
-	float speedMin;
-	float speedMax;
+	int speedMin;
+	int speedMax;
 	int difficultyIterator;
 	
 	
@@ -38,26 +38,38 @@ public class GameController {
 		objects.clear();
 		if(difficulty==0)
 		{
-			speedMin=0.15f;
-			speedMax=0.35f;
+			speedMin=10;
+			speedMax=15;
 			difficultyIterator=3;
 		}
 		else if(difficulty==1)
 		{
-			speedMin=0.2f;
-			speedMax=0.4f;
+			speedMin=15;
+			speedMax=20;
 			difficultyIterator=4;
 		}
 		else if(difficulty==2)
 		{
-			speedMin=0.25f;
-			speedMax=0.45f;
+			speedMin=6;
+			speedMax=8;
 			difficultyIterator=5;
 		}
 		for(int i=0; i<difficultyIterator;i++)
 		{
-			objects.add(factory.makeGameObject(types[random.nextInt(4)], speedMin+random.nextFloat()*(speedMax-speedMin),200+random.nextInt(400),100+random.nextInt(700)));
+			objects.add(factory.makeGameObject(types[random.nextInt(5)], speedMin+random.nextInt(speedMax-speedMin),100+random.nextInt(200),100+random.nextInt(800)));
 		}
 	
 	}
+
+	public List<GameObject> getObjects() {
+		return objects;
+	}
+	public GameObject createObject()
+	{
+		return factory.makeGameObject(types[random.nextInt(5)], speedMin+random.nextInt(speedMax-speedMin),100+random.nextInt(200),100+random.nextInt(800));
+	}
+	public Player getPlayer() {
+		return player;
+	}
+	
 }
