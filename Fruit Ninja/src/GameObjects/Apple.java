@@ -1,21 +1,15 @@
 package GameObjects;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.Random;
 
-import javax.imageio.ImageIO;
-
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 
 public class Apple extends GameObject {
-	public Apple(int speed,int maxHeight,float xPos) {
+	public Apple(int speed,int maxHeight,float xPos,float factor) {
 		this.type="Apple";
 		player=player.getInstance();
 		this.isMovedOffScreen=false;
 		this.isSliced=false;
+		this.factor=factor;
 		this.speed=speed;
 		this.radius=35;
 		this.random=new Random();
@@ -23,13 +17,7 @@ public class Apple extends GameObject {
 		this.maxHeight=maxHeight;
 		this.xPos=xPos;
 		this.yPos=800;
-		try {
-			images=new BufferedImage[] {ImageIO.read(new File("data/apple.png")),ImageIO.read(new File("data/applesliced.png"))};
-
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
+		
 	}
 	
 	public void move()
@@ -38,9 +26,15 @@ public class Apple extends GameObject {
 		{
 			yPos-=speed;
 			if(xDirection)
-				xPos+=0.4*speed;
+			{
+				xPos+=factor*speed;
+			}
+				
 			else
-				xPos-=0.4*speed;
+			{
+				xPos-=factor*speed;
+			}
+				
 		}
 		else
 		{
@@ -52,9 +46,15 @@ public class Apple extends GameObject {
 		{
 			yPos+=speed;
 			if(xDirection)
-				xPos+=0.4*speed;
+			{
+				xPos+=factor*speed;
+			}
+				
 			else
-				xPos-=0.4*speed;
+			{
+				xPos-=factor*speed;
+			}
+				
 		}
 		if(yPos>=800)
 		{

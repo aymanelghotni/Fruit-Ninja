@@ -12,11 +12,12 @@ public class Game extends StateBasedGame{
 	public static final int mainmenu=0;
 	public static final int play=2;
 	public static final int levelmenu=1;
+	public static int difficulty=0;
 	public Game(String name) {
 		super(name);
 		this.addState(new MainMenu(mainmenu));
 		this.addState(new Play(play));
-		this.enterState(play);
+		this.enterState(mainmenu);
 	}
 
 	@Override

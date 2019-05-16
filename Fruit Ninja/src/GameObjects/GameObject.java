@@ -2,7 +2,13 @@ package GameObjects;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+
 import org.newdawn.slick.Image;
+
+import com.sun.tools.javac.Main;
 
 import Control.Player;
 
@@ -18,6 +24,7 @@ public abstract class GameObject implements GameObjectUtil {
 	protected int maxHeight;
 	protected boolean hasReachedMaximumHeight;
 	protected int speed;
+	float factor;
 	protected boolean isSliced;
 	protected boolean isMovedOffScreen;
 	protected BufferedImage[] images;
@@ -90,9 +97,9 @@ public abstract class GameObject implements GameObjectUtil {
 		{
 			yPos-=speed;
 			if(xDirection)
-				xPos+=0.4*speed;
+				xPos+=factor*speed;
 			else
-				xPos-=0.4*speed;
+				xPos-=factor*speed;
 				
 		}
 		else
@@ -105,9 +112,9 @@ public abstract class GameObject implements GameObjectUtil {
 		{
 			yPos+=speed;
 			if(xDirection)
-				xPos+=0.4*speed;
+				xPos+=factor*speed;
 			else
-				xPos-=0.4*speed;
+				xPos-=factor*speed;
 		}
 			
 		if(yPos>=800)
@@ -119,6 +126,13 @@ public abstract class GameObject implements GameObjectUtil {
 	
 	public float getRadius() {
 		return radius;
+	}
+	public void setxDirection(boolean xDirection) {
+		this.xDirection = xDirection;
+	}
+	public boolean getXDirection()
+	{
+		return xDirection;
 	}
 	
 }

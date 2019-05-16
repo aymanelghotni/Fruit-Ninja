@@ -1,17 +1,17 @@
 package GameObjects;
 public class GameObjectFactory {
-	public GameObject makeGameObject(String type,int speed,int maxHeight,float xPos)
+	public GameObject makeGameObject(String type,int speed,int maxHeight,float xPos,float factor)
 	{
 		if(type.equalsIgnoreCase("Melon"))
-			return new Melon(speed,maxHeight,xPos);
+			return new Melon(speed,maxHeight,xPos,factor);
 		if(type.equalsIgnoreCase("Apple"))
-			return new Apple(speed,maxHeight,xPos);
+			return new Apple(speed,maxHeight,xPos,factor);
 		if(type.equalsIgnoreCase("Orange"))
-			return new Orange(speed,maxHeight,xPos);
+			return new Orange(speed,maxHeight,xPos,factor);
 		if(type.equalsIgnoreCase("FatalBomb"))
-			return new FatalBomb(speed,maxHeight,xPos);
+			return new FatalBomb(speed,maxHeight,xPos,factor);
 		if(type.equalsIgnoreCase("DangerBomb"))
-			return new DangerBomb(speed,maxHeight,xPos);
+			return new DangerBomb(speed,maxHeight,xPos,factor);
 		return null;
 	}
 }

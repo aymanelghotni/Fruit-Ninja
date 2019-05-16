@@ -11,8 +11,9 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 public class FatalBomb extends GameObject {
-	public FatalBomb(int speed,int maxHeight,float xPos) {
+	public FatalBomb(int speed,int maxHeight,float xPos,float factor) {
 		this.type="FatalBomb";
+		this.factor=factor;
 		this.random=new Random();
 		player=player.getInstance();
 		xDirection=random.nextBoolean();
@@ -23,14 +24,7 @@ public class FatalBomb extends GameObject {
 		this.xPos=xPos;
 		this.yPos=800;
 		this.radius=60;
-		try {
-			images=new BufferedImage[] {ImageIO.read(new File("data/bomb2.png")),ImageIO.read(new File("data/explosion2.png"))};
-
-
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
+		
 	}
 	public void slice()
 	{

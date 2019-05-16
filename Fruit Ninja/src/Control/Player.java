@@ -7,7 +7,7 @@ public class Player {
 	private static Player instance;
 	private boolean hasLost;
 	private Player() {
-		lives=3;
+		lives=100000;
 		score=0;
 		timer=0;
 		highScore=0;

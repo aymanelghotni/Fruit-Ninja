@@ -13,11 +13,12 @@ import org.newdawn.slick.state.transition.Transition;
 import org.newdawn.slick.tests.TransitionTest;
 
 public class Melon extends GameObject {
-	public Melon(int speed,int maxHeight,float xPos) {
+	public Melon(int speed,int maxHeight,float xPos,float factor) {
 		this.type="Melon";
 		this.random=new Random();
 		xDirection=random.nextBoolean();
 		this.isMovedOffScreen=false;
+		this.factor=factor;
 		player=player.getInstance();
 		this.isSliced=false;
 		this.speed=speed;
@@ -25,14 +26,7 @@ public class Melon extends GameObject {
 		this.xPos=xPos;
 		this.radius=50;
 		this.yPos=800;
-		try {
-			images=new BufferedImage[] {ImageIO.read(new File("data/melon.png")),ImageIO.read(new File("data/melonsliced.png"))};
-
-
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
+		
 	}
 	
 	public void move()
@@ -42,9 +36,9 @@ public class Melon extends GameObject {
 		{
 			yPos-=speed;
 			if(xDirection)
-				xPos+=0.4*speed;
+				xPos+=factor*speed;
 			else
-				xPos-=0.4*speed;
+				xPos-=factor*speed;
 			
 		}
 		if(yPos<=maxHeight)
@@ -56,9 +50,9 @@ public class Melon extends GameObject {
 		{
 			yPos+=speed;
 			if(xDirection)
-				xPos+=0.4*speed;
+				xPos+=factor*speed;
 			else
-				xPos-=0.4*speed;
+				xPos-=factor*speed;
 			
 		}
 		if(yPos>=800)
