@@ -29,11 +29,11 @@ public class Orange extends GameObject{
 	{
 		if(yPos>maxHeight && !hasReachedMaximumHeight)
 		{
-			yPos-=speed;
+			yPos-=speed*Statics.speedFactor;
 			if(xDirection)
-				xPos+=factor*speed;
+				xPos+=factor*speed*Statics.speedFactor;
 			else
-				xPos-=factor*speed;
+				xPos-=factor*speed*Statics.speedFactor;
 		}
 		else
 		{
@@ -43,11 +43,11 @@ public class Orange extends GameObject{
 		
 		if(hasReachedMaximumHeight && yPos<800)
 		{
-			yPos+=speed;
+			yPos+=speed*Statics.speedFactor;
 			if(xDirection)
-				xPos+=factor*speed;
+				xPos+=factor*speed*Statics.speedFactor;
 			else
-				xPos-=factor*speed;
+				xPos-=factor*speed*Statics.speedFactor;
 		}
 		if(yPos>=800)
 		{

@@ -15,7 +15,11 @@ import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.state.BasicGameState;
+import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
+import org.newdawn.slick.state.transition.Transition;
 import org.newdawn.slick.util.BufferedImageUtil;
 
 import Control.GameController;
@@ -26,6 +30,7 @@ import GameObjects.GameObject;
 import GameObjects.GameObjectFactory;
 import GameObjects.Melon;
 import GameObjects.Orange;
+import GameObjects.SpecialFruit;
 
 
 public class Play extends BasicGameState{
@@ -56,12 +61,16 @@ public class Play extends BasicGameState{
 	Image orange;
 	Image dangerbomb;
 	Image fatalbomb;
+	Image roman;
 	
 	Image applesliced;
 	Image melonsliced;
 	Image orangesliced;
 	Image dangerexplosion;
 	Image fatalexplosion;
+	Image romansliced;
+	
+	Image gameover;
 	
 	GameObject obj1;
 	GameObject obj2;
@@ -80,19 +89,30 @@ public class Play extends BasicGameState{
 	Sound bomb1;
 	Sound bomb2;
 	Sound fatalalert;
+	Sound special;
+	
+	Input input;
 	public Play(int id) {
 		// TODO Auto-generated constructor stub
 	}
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
 		background=new Image("data/background.jpg");
 		livesLabel=new Image("data/lives.png");
+		gameover=new Image("data/gameover.png");
+		
 		game=new GameController(Game.difficulty);
+		game.getPlayer().setScore(0);
+		game.getPlayer().setLives(3);
+		
+		
 		slice=new Sound("data/slice.wav");
 		fuse=new Sound("data/fuse.wav");
 		thro=new Sound("data/throw.wav");
 		bomb1=new Sound("data/dangerbomb.wav");
 		bomb2=new Sound("data/fatalbomb.wav");
 		fatalalert=new Sound("data/fatalalert.wav");
+		special=new Sound("data/specialsound.wav");
+		
 		game.randomizeGameObjects();
 		obj1=game.getObjects().get(0);
 		obj2=game.getObjects().get(1);
@@ -132,165 +152,228 @@ public class Play extends BasicGameState{
 		dangerbomb=new Image("data/bomb1.png");
 		orange=new Image("data/orange.png");
 		melon=new Image("data/melon.png");
+		roman=new Image("data/roman.png");
 		
 		applesliced=new Image("data/applesliced.png");
 		fatalexplosion=new Image("data/explosion2.png");
 		dangerexplosion=new Image("data/explosion.png");
 		orangesliced=new Image("data/orangesliced.png");
 		melonsliced=new Image("data/melonsliced.png");
+		romansliced=new Image("data/romansliced.png");
 		
 		if(obj1 instanceof Melon)
 		{
 			object1=melon;
 			object1Sliced=melonsliced;
+			thro.play();
+		}
+		
+		if(obj1 instanceof SpecialFruit)
+		{
+			object1=roman;
+			object1Sliced=romansliced;
+			special.play();
 		}
 			
 		if(obj1 instanceof Apple)
 		{
 			object1=apple;
 			object1Sliced=applesliced;
+			thro.play();
 		}
 			
 		if(obj1 instanceof Orange)
 		{
 			object1=orange;
 			object1Sliced=orangesliced;
+			thro.play();
 		}
 			
 		if(obj1 instanceof DangerBomb)
 		{
 			object1=dangerbomb;
 			object1Sliced=dangerexplosion;
+			thro.play();
 		}
 			
 		if(obj1 instanceof FatalBomb)
 		{
 			object1=fatalbomb;
 			object1Sliced=fatalexplosion;
+			thro.play();
+		}
+		
+		if(obj2 instanceof SpecialFruit)
+		{
+			object2=roman;
+			object2Sliced=romansliced;
+			special.play();
 		}
 		
 		if(obj2 instanceof Melon)
 		{
 			object2=melon;
 			object2Sliced=melonsliced;
+			thro.play();
 		}
 			
 		if(obj2 instanceof Apple)
 		{
 			object2=apple;
 			object2Sliced=applesliced;
+			thro.play();
 		}
 			
 		if(obj2 instanceof Orange)
 		{
 			object2=orange;
 			object2Sliced=orangesliced;
+			thro.play();
 		}
 			
 		if(obj2 instanceof DangerBomb)
 		{
 			object2=dangerbomb;
 			object2Sliced=dangerexplosion;
+			thro.play();
 		}
 			
 		if(obj2 instanceof FatalBomb)
 		{
 			object2=fatalbomb;
 			object2Sliced=fatalexplosion;
+			thro.play();
+		}
+		
+		if(obj3 instanceof SpecialFruit)
+		{
+			object3=roman;
+			object3Sliced=romansliced;
+			special.play();
 		}
 		
 		if(obj3 instanceof Melon)
 		{
 			object3=melon;
 			object3Sliced=melonsliced;
+			thro.play();
 		}
 			
 		if(obj3 instanceof Apple)
 		{
 			object3=apple;
 			object3Sliced=applesliced;
+			thro.play();
 		}
 			
 		if(obj3 instanceof Orange)
 		{
 			object3=orange;
 			object3Sliced=orangesliced;
+			thro.play();
 		}
 			
 		if(obj3 instanceof DangerBomb)
 		{
 			object3=dangerbomb;
 			object3Sliced=dangerexplosion;
+			thro.play();
 		}
 			
 		if(obj3 instanceof FatalBomb)
 		{
 			object3=fatalbomb;
 			object3Sliced=fatalexplosion;
+			thro.play();
 		}
 		
 		if(Game.difficulty>0)
 		{
+			
+			if(obj4 instanceof SpecialFruit)
+			{
+				object4=roman;
+				object4Sliced=romansliced;
+				special.play();
+			}
+			
 			if(obj4 instanceof Melon)
 			{
 				object4=melon;
 				object4Sliced=melonsliced;
+				thro.play();
 			}
 				
 			if(obj4 instanceof Apple)
 			{
 				object4=apple;
 				object4Sliced=applesliced;
+				thro.play();
 			}
 				
 			if(obj4 instanceof Orange)
 			{
 				object4=orange;
 				object4Sliced=orangesliced;
+				thro.play();
 			}
 				
 			if(obj4 instanceof DangerBomb)
 			{
 				object4=dangerbomb;
 				object4Sliced=dangerexplosion;
+				thro.play();
 			}
 				
 			if(obj4 instanceof FatalBomb)
 			{
 				object4=fatalbomb;
 				object4Sliced=fatalexplosion;
+				thro.play();
 			}
 			
 			if(Game.difficulty>1)
 			{
+				if(obj5 instanceof SpecialFruit)
+				{
+					object5=roman;
+					object5Sliced=romansliced;
+					special.play();
+				}
+				
 				if(obj5 instanceof Melon)
 				{
 					object5=melon;
 					object5Sliced=melonsliced;
+					thro.play();
 				}
 					
 				if(obj5 instanceof Apple)
 				{
 					object5=apple;
 					object5Sliced=applesliced;
+					thro.play();
 				}
 					
 				if(obj5 instanceof Orange)
 				{
 					object5=orange;
 					object5Sliced=orangesliced;
+					thro.play();
 				}
 					
 				if(obj5 instanceof DangerBomb)
 				{
 					object5=dangerbomb;
 					object5Sliced=dangerexplosion;
+					thro.play();
 				}
 					
 				if(obj5 instanceof FatalBomb)
 				{
 					object5=fatalbomb;
 					object5Sliced=fatalexplosion;
+					thro.play();
 				}
 				
 				
@@ -335,6 +418,7 @@ public class Play extends BasicGameState{
 			melonsliced.draw(30, 30, 60, 60);
 			melonsliced.draw(95, 30, 60, 60);
 			melonsliced.draw(160, 30, 60, 60);
+			
 		}
 		
 		if(!obj1.isSliced())
@@ -391,7 +475,7 @@ public class Play extends BasicGameState{
 		
 		
 		g.scale(2f, 2f);
-		g.drawString("Score: "+String.valueOf(game.getPlayer().getScore()),250, 10);
+		g.drawString("Score: "+String.valueOf(game.getPlayer().getScore())+" Best:"+game.getPlayer().getHighScore(),250, 10);
 		g.drawString(String.valueOf(timeSec),550, 10);
 		if(Game.difficulty>0)
 		{
@@ -417,13 +501,27 @@ public class Play extends BasicGameState{
 		oval1.setY(obj1.getY());
 		oval1.setRadius(obj1.getRadius());
 		
-		
+		if(game.getPlayer().getLives()==0)
+			gameover.draw(150,120,0.75f);
 		
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
+		input=gc.getInput();
 		
+		if(game.getPlayer().getLives()==0)
+		{
+			
+			if(game.getPlayer().getScore()>game.getPlayer().getHighScore())
+				game.getPlayer().setHighScore(game.getPlayer().getScore());
+			if(input.isMousePressed(0))
+			{
+				sbg.getState(Game.mainmenu).init(gc, sbg);
+				sbg.enterState(Game.mainmenu,new FadeOutTransition(),new FadeInTransition());
+			}
+				
+		}
 		
 		int xpos=Mouse.getX();
 		int ypos=Mouse.getY();
@@ -447,6 +545,13 @@ public class Play extends BasicGameState{
 				{
 					object1=melon;
 					object1Sliced=melonsliced;
+				}
+				
+				if(obj1 instanceof SpecialFruit)
+				{
+					object1=roman;
+					object1Sliced=romansliced;
+					special.play();
 				}
 					
 				if(obj1 instanceof Apple)
@@ -491,6 +596,13 @@ public class Play extends BasicGameState{
 					object2=melon;
 					object2Sliced=melonsliced;
 				}
+				
+				if(obj2 instanceof SpecialFruit)
+				{
+					object2=roman;
+					object2Sliced=romansliced;
+					special.play();
+				}
 					
 				if(obj2 instanceof Apple)
 				{
@@ -529,6 +641,13 @@ public class Play extends BasicGameState{
 				{
 					object3=melon;
 					object3Sliced=melonsliced;
+				}
+				
+				if(obj3 instanceof SpecialFruit)
+				{
+					object3=roman;
+					object3Sliced=romansliced;
+					special.play();
 				}
 					
 				if(obj3 instanceof Apple)
@@ -572,6 +691,13 @@ public class Play extends BasicGameState{
 						object4=melon;
 						object4Sliced=melonsliced;
 					}
+					
+					if(obj4 instanceof SpecialFruit)
+					{
+						object4=roman;
+						object4Sliced=romansliced;
+						special.play();
+					}
 						
 					if(obj4 instanceof Apple)
 					{
@@ -611,6 +737,13 @@ public class Play extends BasicGameState{
 						{
 							object5=melon;
 							object5Sliced=melonsliced;
+						}
+						
+						if(obj5 instanceof SpecialFruit)
+						{
+							object5=roman;
+							object5Sliced=romansliced;
+							special.play();
 						}
 							
 						if(obj5 instanceof Apple)
@@ -843,11 +976,7 @@ public class Play extends BasicGameState{
 						obj5.setxDirection(!obj5.getXDirection());
 				}
 			}
-			
-			
-			
-			
-				
+					
 			
 		}
 		

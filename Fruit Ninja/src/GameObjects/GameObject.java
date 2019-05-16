@@ -95,9 +95,9 @@ public abstract class GameObject implements GameObjectUtil {
 		
 		if(yPos>maxHeight && !hasReachedMaximumHeight)
 		{
-			yPos-=speed;
+			yPos-=speed*Statics.speedFactor;
 			if(xDirection)
-				xPos+=factor*speed;
+				xPos+=factor*speed*Statics.speedFactor;
 			else
 				xPos-=factor*speed;
 				
@@ -110,11 +110,11 @@ public abstract class GameObject implements GameObjectUtil {
 		
 		if(hasReachedMaximumHeight && yPos<800)
 		{
-			yPos+=speed;
+			yPos+=speed*Statics.speedFactor;
 			if(xDirection)
-				xPos+=factor*speed;
+				xPos+=factor*speed*Statics.speedFactor;
 			else
-				xPos-=factor*speed;
+				xPos-=factor*speed*Statics.speedFactor;
 		}
 			
 		if(yPos>=800)

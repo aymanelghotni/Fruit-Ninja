@@ -12,6 +12,9 @@ public class GameObjectFactory {
 			return new FatalBomb(speed,maxHeight,xPos,factor);
 		if(type.equalsIgnoreCase("DangerBomb"))
 			return new DangerBomb(speed,maxHeight,xPos,factor);
+		if(type.equalsIgnoreCase("SpecialFruit"))
+			return new SpecialFruit(speed,maxHeight,xPos,factor);
+		
 		return null;
 	}
 }

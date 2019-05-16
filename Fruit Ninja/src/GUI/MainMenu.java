@@ -10,6 +10,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
 
 public class MainMenu extends BasicGameState{
 	
@@ -38,6 +40,12 @@ public class MainMenu extends BasicGameState{
 		logo=new Image("data/logo.png");
 		music=new Sound("data/music.wav");
 		music.loop();
+		y1=800-450;
+		y2=800-450;
+		y3=800-450;
+		flagA=0;
+		flagR=0;
+		flagM=0;
 		background=new Image("data/background.jpg");
 		rookie=new Image("data/rookie.png");
 		amateur=new Image("data/amateur.png");
@@ -61,7 +69,7 @@ public class MainMenu extends BasicGameState{
 		xpos=Mouse.getX();
 		ypos=800-Mouse.getY();
 		mouse=xpos+","+ypos;
-		if(xpos>80 && ypos>270 &&xpos<360 && ypos<450 && input.isMousePressed(0))
+		if(xpos>80 && ypos>370 &&xpos<360 && ypos<550 && input.isMousePressed(0))
 		{
 			Game.difficulty=0;
 			sbg.getState(Game.play).init(gc, sbg);
@@ -75,11 +83,11 @@ public class MainMenu extends BasicGameState{
 			if(y2 >=800 && y3>=800)
 			{
 				music.stop();
-				sbg.enterState(Game.play);
+				sbg.enterState(Game.play,new FadeOutTransition(), new FadeInTransition());
 			}
 		}
 			
-		if(xpos>475 && ypos> 270 && ypos<450 && xpos<760 && input.isMousePressed(0))
+		if(xpos>475 && ypos> 370 && ypos<550 && xpos<760 && input.isMousePressed(0))
 		{
 			Game.difficulty=1;
 			sbg.getState(Game.play).init(gc, sbg);
@@ -93,11 +101,11 @@ public class MainMenu extends BasicGameState{
 			if(y1 >=800 && y3>=800)
 			{
 				music.stop();
-				sbg.enterState(Game.play);
+				sbg.enterState(Game.play,new FadeOutTransition(), new FadeInTransition());
 			}
 		}
 		
-		if(xpos>875 && ypos> 270 && ypos<450 && xpos<1170 && input.isMousePressed(0))
+		if(xpos>875 && ypos> 370 && ypos<550 && xpos<1170 && input.isMousePressed(0))
 		{
 			Game.difficulty=2;
 			flagM=1;
@@ -112,7 +120,7 @@ public class MainMenu extends BasicGameState{
 			if(y2 >=800 && y1>=800)
 			{
 				music.stop();
-				sbg.enterState(Game.play);
+				sbg.enterState(Game.play, new FadeOutTransition(), new FadeInTransition());
 			}
 		}
 			
