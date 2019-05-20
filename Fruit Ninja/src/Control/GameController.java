@@ -10,7 +10,7 @@ public class GameController {
 	List<GameObject> objects;
 	GameObjectFactory factory;
 	Random random;
-	String[] types= {"Apple","Melon","Orange","FatalBomb","DangerBomb","Apple","Melon","Orange","FatalBomb","DangerBomb","Apple","Melon","Orange","FatalBomb","DangerBomb","SpecialFruit"};
+	String[] types= {"Apple","Melon","Orange","FatalBomb","DangerBomb","Apple","Melon","Orange","FatalBomb","DangerBomb","Apple","Melon","Orange","FatalBomb","DangerBomb","SpecialFruit","DragonFruit","Mango","Mango"};
 	
 	int difficulty;
 	int speedMin;
@@ -66,7 +66,7 @@ public class GameController {
 	}
 	public GameObject createObject()
 	{
-		return factory.makeGameObject(types[random.nextInt(16)], speedMin+random.nextInt(speedMax-speedMin),100+random.nextInt(200),100+random.nextInt(800),random.nextFloat()*(0.4f-0.2f));
+		return factory.makeGameObject(types[random.nextInt(19)], speedMin+random.nextInt(speedMax-speedMin),100+random.nextInt(200),100+random.nextInt(800),random.nextFloat()*(0.4f-0.2f));
 	}
 	public Player getPlayer() {
 		return player;

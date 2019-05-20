@@ -2,10 +2,10 @@ package GameObjects;
 
 import java.util.Random;
 
-public class SpecialFruit extends GameObject {
+public class Mango extends GameObject {
 	int slices;
-	public SpecialFruit(int speed,int maxHeight,float xPos,float factor) {
-		this.type="SpecialFruit";
+	public Mango(int speed,int maxHeight,float xPos,float factor) {
+		this.type="Mango";
 		player=player.getInstance();
 		this.isMovedOffScreen=false;
 		this.isSliced=false;
@@ -73,22 +73,8 @@ public class SpecialFruit extends GameObject {
 	public void slice()
 	{
 		
-		this.slices--;
-		player.setScore(player.getScore()+5);
-		Statics.speedFactor=0.1f;
-		Statics.flagIce=1;
-		if(slices==0)
-		{
-			this.isSliced=true;
-			Statics.speedFactor=1;
-			Statics.flagIce=0;
-		}
-		if(player.getLives()==0)
-		{
-			Statics.flagIce=0;
-			Statics.speedFactor=1;
-		}
-			
+		this.isSliced=true;
+		player.setScore(player.getScore()+30);
 			
 			
 	}

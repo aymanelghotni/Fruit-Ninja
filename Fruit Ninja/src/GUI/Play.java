@@ -25,12 +25,15 @@ import org.newdawn.slick.util.BufferedImageUtil;
 import Control.GameController;
 import GameObjects.Apple;
 import GameObjects.DangerBomb;
+import GameObjects.DragonFruit;
 import GameObjects.FatalBomb;
 import GameObjects.GameObject;
 import GameObjects.GameObjectFactory;
+import GameObjects.Mango;
 import GameObjects.Melon;
 import GameObjects.Orange;
 import GameObjects.SpecialFruit;
+import GameObjects.Statics;
 
 
 public class Play extends BasicGameState{
@@ -62,6 +65,8 @@ public class Play extends BasicGameState{
 	Image dangerbomb;
 	Image fatalbomb;
 	Image roman;
+	Image mango;
+	Image dragon;
 	
 	Image applesliced;
 	Image melonsliced;
@@ -69,6 +74,9 @@ public class Play extends BasicGameState{
 	Image dangerexplosion;
 	Image fatalexplosion;
 	Image romansliced;
+	Image dragonsliced;
+	Image mangosliced;
+	Image backgroundIce;
 	
 	Image gameover;
 	
@@ -97,6 +105,7 @@ public class Play extends BasicGameState{
 	}
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
 		background=new Image("data/background.jpg");
+		backgroundIce=new Image("data/backgroundicy.png");
 		livesLabel=new Image("data/lives.png");
 		gameover=new Image("data/gameover.png");
 		
@@ -153,6 +162,8 @@ public class Play extends BasicGameState{
 		orange=new Image("data/orange.png");
 		melon=new Image("data/melon.png");
 		roman=new Image("data/roman.png");
+		mango=new Image("data/mango.png");
+		dragon=new Image("data/dragonfruit.png");
 		
 		applesliced=new Image("data/applesliced.png");
 		fatalexplosion=new Image("data/explosion2.png");
@@ -160,12 +171,28 @@ public class Play extends BasicGameState{
 		orangesliced=new Image("data/orangesliced.png");
 		melonsliced=new Image("data/melonsliced.png");
 		romansliced=new Image("data/romansliced.png");
+		mangosliced=new Image("data/mangosliced.png");
+		dragonsliced=new Image("data/dragonfruitsliced.png");
 		
 		if(obj1 instanceof Melon)
 		{
 			object1=melon;
 			object1Sliced=melonsliced;
 			thro.play();
+		}
+		
+		if(obj1 instanceof Mango)
+		{
+			object1=mango;
+			object1Sliced=mangosliced;
+			special.play();
+		}
+		
+		if(obj1 instanceof DragonFruit)
+		{
+			object1=dragon;
+			object1Sliced=dragonsliced;
+			special.play();
 		}
 		
 		if(obj1 instanceof SpecialFruit)
@@ -201,6 +228,21 @@ public class Play extends BasicGameState{
 			object1=fatalbomb;
 			object1Sliced=fatalexplosion;
 			thro.play();
+		}
+		
+		
+		if(obj2 instanceof Mango)
+		{
+			object2=mango;
+			object2Sliced=mangosliced;
+			special.play();
+		}
+		
+		if(obj2 instanceof DragonFruit)
+		{
+			object2=dragon;
+			object2Sliced=dragonsliced;
+			special.play();
 		}
 		
 		if(obj2 instanceof SpecialFruit)
@@ -243,6 +285,20 @@ public class Play extends BasicGameState{
 			object2=fatalbomb;
 			object2Sliced=fatalexplosion;
 			thro.play();
+		}
+		
+		if(obj3 instanceof Mango)
+		{
+			object3=mango;
+			object3Sliced=mangosliced;
+			special.play();
+		}
+		
+		if(obj3 instanceof DragonFruit)
+		{
+			object3=dragon;
+			object3Sliced=dragonsliced;
+			special.play();
 		}
 		
 		if(obj3 instanceof SpecialFruit)
@@ -290,6 +346,20 @@ public class Play extends BasicGameState{
 		if(Game.difficulty>0)
 		{
 			
+			if(obj4 instanceof Mango)
+			{
+				object4=mango;
+				object4Sliced=mangosliced;
+				special.play();
+			}
+			
+			if(obj4 instanceof DragonFruit)
+			{
+				object4=dragon;
+				object4Sliced=dragonsliced;
+				special.play();
+			}
+			
 			if(obj4 instanceof SpecialFruit)
 			{
 				object4=roman;
@@ -334,6 +404,21 @@ public class Play extends BasicGameState{
 			
 			if(Game.difficulty>1)
 			{
+				
+				if(obj5 instanceof Mango)
+				{
+					object5=mango;
+					object5Sliced=mangosliced;
+					special.play();
+				}
+				
+				if(obj5 instanceof DragonFruit)
+				{
+					object5=dragon;
+					object5Sliced=dragonsliced;
+					special.play();
+				}
+				
 				if(obj5 instanceof SpecialFruit)
 				{
 					object5=roman;
@@ -390,7 +475,13 @@ public class Play extends BasicGameState{
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-		background.draw(0,0,1200,800);
+		if(Statics.flagIce==0)
+		{
+			background.draw(0,0,1200,800);
+		}
+		else
+			backgroundIce.draw(0,0,1200,800);
+		
 		livesLabel.draw(0, 0,255,150);
 		if(game.getPlayer().getLives()==3)
 		{
@@ -541,6 +632,21 @@ public class Play extends BasicGameState{
 			{
 				obj1=game.createObject();
 				thro.play();
+				
+				if(obj1 instanceof Mango)
+				{
+					object1=mango;
+					object1Sliced=mangosliced;
+					special.play();
+				}
+				
+				if(obj1 instanceof DragonFruit)
+				{
+					object1=dragon;
+					object1Sliced=dragonsliced;
+					special.play();
+				}
+				
 				if(obj1 instanceof Melon)
 				{
 					object1=melon;
@@ -591,6 +697,21 @@ public class Play extends BasicGameState{
 			{
 				obj2=game.createObject();
 				thro.play();
+				
+				if(obj2 instanceof Mango)
+				{
+					object2=mango;
+					object2Sliced=mangosliced;
+					special.play();
+				}
+				
+				if(obj2 instanceof DragonFruit)
+				{
+					object2=dragon;
+					object2Sliced=dragonsliced;
+					special.play();
+				}
+				
 				if(obj2 instanceof Melon)
 				{
 					object2=melon;
@@ -637,6 +758,21 @@ public class Play extends BasicGameState{
 			{
 				obj3=game.createObject();
 				thro.play();
+				
+				if(obj3 instanceof Mango)
+				{
+					object3=mango;
+					object3Sliced=mangosliced;
+					special.play();
+				}
+				
+				if(obj3 instanceof DragonFruit)
+				{
+					object3=dragon;
+					object3Sliced=dragonsliced;
+					special.play();
+				}
+				
 				if(obj3 instanceof Melon)
 				{
 					object3=melon;
@@ -686,6 +822,21 @@ public class Play extends BasicGameState{
 				{
 					obj4=game.createObject();
 					thro.play();
+					
+					if(obj4 instanceof Mango)
+					{
+						object4=mango;
+						object4Sliced=mangosliced;
+						special.play();
+					}
+					
+					if(obj4 instanceof DragonFruit)
+					{
+						object4=dragon;
+						object4Sliced=dragonsliced;
+						special.play();
+					}
+					
 					if(obj4 instanceof Melon)
 					{
 						object4=melon;
@@ -733,6 +884,21 @@ public class Play extends BasicGameState{
 					{
 						obj5=game.createObject();
 						thro.play();
+						if(obj5 instanceof Mango)
+						{
+							object5=mango;
+							object5Sliced=mangosliced;
+							special.play();
+						}
+						
+						if(obj5 instanceof DragonFruit)
+						{
+							object5=dragon;
+							object5Sliced=dragonsliced;
+							special.play();
+						}
+						
+						
 						if(obj5 instanceof Melon)
 						{
 							object5=melon;
