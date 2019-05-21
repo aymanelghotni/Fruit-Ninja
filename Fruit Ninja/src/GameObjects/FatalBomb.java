@@ -29,6 +29,12 @@ public class FatalBomb extends GameObject {
 	public void slice()
 	{
 		this.isSliced=true;
-		player.setLives(0);
+		if(Statics.arcade)
+		{
+			player.setScore(player.getScore()-30);
+		}
+		else
+			player.setLives(0);
+		
 	}
 }

@@ -29,6 +29,12 @@ public class DangerBomb extends GameObject {
 	public void slice()
 	{
 		this.isSliced=true;
-		player.setLives(player.getLives()-1);
+		if(!Statics.arcade)
+		{
+			player.setLives(player.getLives()-1);
+		}
+		else
+			player.setScore(player.getScore()-10);
+		
 	}
 }

@@ -54,6 +54,10 @@ public class GameController {
 			speedMax=8;
 			difficultyIterator=5;
 		}
+		else if(difficulty==3)
+		{
+			
+		}
 		for(int i=0; i<difficultyIterator;i++)
 		{
 			objects.add(factory.makeGameObject(types[random.nextInt(5)], speedMin+random.nextInt(speedMax-speedMin),100+random.nextInt(200),300+random.nextInt(800),random.nextFloat()*(0.4f-0.2f)));

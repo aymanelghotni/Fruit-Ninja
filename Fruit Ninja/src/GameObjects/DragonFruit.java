@@ -75,8 +75,12 @@ public class DragonFruit extends GameObject {
 		
 		this.isSliced=true;
 		player.setScore(player.getScore()+30);
-		if(player.getLives()<3)
-			player.setLives(player.getLives()+1);
+		if(!Statics.arcade)
+		{
+			if(player.getLives()<3)
+				player.setLives(player.getLives()+1);
+		}
+		
 		
 			
 			
