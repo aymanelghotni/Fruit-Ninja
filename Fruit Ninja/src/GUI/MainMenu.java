@@ -20,17 +20,20 @@ public class MainMenu extends BasicGameState{
 	Image rookie;
 	Image amateur;
 	Image master;
+	Image arcade;
 	int xpos;
 	int ypos;
 	Sound music;
 	String mouse="No input";
 	Image logo;
-	float y1=800-450;
-	float y2=800-450;
-	float y3=800-450;
+	float y1;
+	float y2;
+	float y3;
 	int flagA=0;
 	int flagR=0;
 	int flagM=0;
+	int flagAR;
+	float y4;
 	public MainMenu(int id) {
 		
 	}
@@ -43,11 +46,14 @@ public class MainMenu extends BasicGameState{
 		y1=800-450;
 		y2=800-450;
 		y3=800-450;
+		y4=800-200;
 		flagA=0;
 		flagR=0;
 		flagM=0;
+		flagAR=0;
 		background=new Image("data/background.jpg");
 		rookie=new Image("data/rookie.png");
+		arcade=new Image("data/arcade.png");
 		amateur=new Image("data/amateur.png");
 		master=new Image("data/master.png");	
 		
@@ -60,6 +66,7 @@ public class MainMenu extends BasicGameState{
 		rookie.draw(70,y1,0.15f);
 		amateur.draw(470,y2,0.15f);
 		master.draw(870,y3,0.15f);
+		arcade.draw(470,y4,0.4f);
 		logo.draw(200,0);
 	}
 
@@ -80,7 +87,8 @@ public class MainMenu extends BasicGameState{
 		{
 			y2+=delta;
 			y3+=delta;
-			if(y2 >=800 && y3>=800)
+			y4+=delta;
+			if(y2 >=800 && y3>=800 && y4>=800)
 			{
 				music.stop();
 				sbg.enterState(Game.play,new FadeOutTransition(), new FadeInTransition());
@@ -98,7 +106,8 @@ public class MainMenu extends BasicGameState{
 		{
 			y1+=delta;
 			y3+=delta;
-			if(y1 >=800 && y3>=800)
+			y4+=delta;
+			if(y1 >=800 && y3>=800 && y4>=800)
 			{
 				music.stop();
 				sbg.enterState(Game.play,new FadeOutTransition(), new FadeInTransition());
@@ -117,10 +126,30 @@ public class MainMenu extends BasicGameState{
 		{
 			y2+=delta;
 			y1+=delta;
-			if(y2 >=800 && y1>=800)
+			y4+=delta;
+			if(y2 >=800 && y1>=800 && y4>=800)
 			{
 				music.stop();
 				sbg.enterState(Game.play, new FadeOutTransition(), new FadeInTransition());
+			}
+		}
+		
+		if(xpos>475 && ypos> 620 && ypos<800 && xpos<760 && input.isMousePressed(0))
+		{
+			Game.difficulty=3;
+			sbg.getState(Game.play).init(gc, sbg);
+			flagAR=1;
+
+		}
+		if(flagAR==1)
+		{
+			y2+=delta;
+			y3+=delta;
+			y1+=delta;
+			if(y2 >=800 && y3>=800 && y1>=800)
+			{
+				music.stop();
+				sbg.enterState(Game.play,new FadeOutTransition(), new FadeInTransition());
 			}
 		}
 			

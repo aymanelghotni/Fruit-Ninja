@@ -8,12 +8,13 @@ public class Test {
 	{
 		GameController game= new GameController(0);
 		game.randomizeGameObjects();
-		game.slice(game.objects.get(0));
+		Command save=new SaveGame(game);
+		/*game.slice(game.objects.get(0));
 		game.slice(game.objects.get(1));
 		game.slice(game.objects.get(2));
 		game.slice(game.objects.get(3));
 		game.slice(game.objects.get(4));
-		System.out.println(game.player.getScore()+" "+game.player.getLives());
+		System.out.println(game.player.getScore()+" "+game.player.getLives());*/
 		
 		
 		

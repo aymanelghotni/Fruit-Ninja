@@ -22,7 +22,11 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.state.transition.Transition;
 import org.newdawn.slick.util.BufferedImageUtil;
 
+import Control.Command;
 import Control.GameController;
+import Control.LoadGame;
+import Control.Player;
+import Control.SaveGame;
 import GameObjects.Apple;
 import GameObjects.DangerBomb;
 import GameObjects.DragonFruit;
@@ -49,6 +53,9 @@ public class Play extends BasicGameState{
 	Circle oval3;
 	Circle oval4;
 	Circle oval5;
+	
+	Command load;
+	Command save;
 	
 	String score="NO input";
 	
@@ -109,10 +116,13 @@ public class Play extends BasicGameState{
 		livesLabel=new Image("data/lives.png");
 		gameover=new Image("data/gameover.png");
 		
+		
 		game=new GameController(Game.difficulty);
 		game.getPlayer().setScore(0);
 		game.getPlayer().setLives(3);
 		
+		load=new LoadGame(game);
+		save=new SaveGame(game);
 		
 		slice=new Sound("data/slice.wav");
 		fuse=new Sound("data/fuse.wav");
@@ -152,10 +162,19 @@ public class Play extends BasicGameState{
 		}
 		
 
+		if(!Statics.arcade)
+		{
+			time=61;
+			
+			timeSec=0;
+		}
+		else
+		{
+			time=61;
+			
+			timeSec=60;
+		}
 		
-		time=61;
-		
-		timeSec=0;
 		apple=new Image("data/apple.png");
 		fatalbomb=new Image("data/bomb2.png");
 		dangerbomb=new Image("data/bomb1.png");
@@ -469,7 +488,7 @@ public class Play extends BasicGameState{
 		
 		
 		
-		
+		load.execute();
 		
 	}
 
@@ -481,36 +500,39 @@ public class Play extends BasicGameState{
 		}
 		else
 			backgroundIce.draw(0,0,1200,800);
-		
-		livesLabel.draw(0, 0,255,150);
-		if(game.getPlayer().getLives()==3)
+		if(!Statics.arcade)
 		{
-			melon.draw(30, 30, 60, 60);
-			melon.draw(95, 30, 60, 60);
-			melon.draw(160, 30, 60, 60);
-		}
-		if(game.getPlayer().getLives()==2)
-		{
-			melonsliced.draw(30, 30, 60, 60);
-			melon.draw(95, 30, 60, 60);
-			melon.draw(160, 30, 60, 60);
-		}
-		
-		if(game.getPlayer().getLives()==1)
-		{
-			melonsliced.draw(30, 30, 60, 60);
-			melonsliced.draw(95, 30, 60, 60);
-			melon.draw(160, 30, 60, 60);
-		}
-		
-		if(game.getPlayer().getLives()==0)
-		{
+			livesLabel.draw(0, 0,255,150);
+			if(game.getPlayer().getLives()==3)
+			{
+				melon.draw(30, 30, 60, 60);
+				melon.draw(95, 30, 60, 60);
+				melon.draw(160, 30, 60, 60);
+			}
+			if(game.getPlayer().getLives()==2)
+			{
+				melonsliced.draw(30, 30, 60, 60);
+				melon.draw(95, 30, 60, 60);
+				melon.draw(160, 30, 60, 60);
+			}
 			
-			melonsliced.draw(30, 30, 60, 60);
-			melonsliced.draw(95, 30, 60, 60);
-			melonsliced.draw(160, 30, 60, 60);
+			if(game.getPlayer().getLives()==1)
+			{
+				melonsliced.draw(30, 30, 60, 60);
+				melonsliced.draw(95, 30, 60, 60);
+				melon.draw(160, 30, 60, 60);
+			}
 			
+			if(game.getPlayer().getLives()==0)
+			{
+				
+				melonsliced.draw(30, 30, 60, 60);
+				melonsliced.draw(95, 30, 60, 60);
+				melonsliced.draw(160, 30, 60, 60);
+				
+			}
 		}
+		
 		
 		if(!obj1.isSliced())
 		{
@@ -592,7 +614,9 @@ public class Play extends BasicGameState{
 		oval1.setY(obj1.getY());
 		oval1.setRadius(obj1.getRadius());
 		
-		if(game.getPlayer().getLives()==0)
+		if(game.getPlayer().getLives()==0 && !Statics.arcade)
+			gameover.draw(150,120,0.75f);
+		if(timeSec<1 && Statics.arcade)
 			gameover.draw(150,120,0.75f);
 		
 	}
@@ -600,8 +624,20 @@ public class Play extends BasicGameState{
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
 		input=gc.getInput();
-		
-		if(game.getPlayer().getLives()==0)
+		if(game.getPlayer().getLives()==0 && !Statics.arcade)
+		{
+			
+			if(game.getPlayer().getScore()>game.getPlayer().getHighScore())
+				game.getPlayer().setHighScore(game.getPlayer().getScore());
+			if(input.isMousePressed(0))
+			{
+				sbg.getState(Game.mainmenu).init(gc, sbg);
+				save.execute();
+				sbg.enterState(Game.mainmenu,new FadeOutTransition(),new FadeInTransition());
+			}
+				
+		}
+		if(Statics.arcade && timeSec<1)
 		{
 			
 			if(game.getPlayer().getScore()>game.getPlayer().getHighScore())
@@ -616,15 +652,30 @@ public class Play extends BasicGameState{
 		
 		int xpos=Mouse.getX();
 		int ypos=Mouse.getY();
-		if(game.getPlayer().getLives()!=0)
+		if(game.getPlayer().getLives() >0 || (Statics.arcade && timeSec>0))
 		{
+			
 			time++;
 			
-			if(time%60==0)
+			if(!Statics.arcade)
 			{
 				
-				timeSec++;
+				if(time%60==0)
+				{
+					
+					timeSec++;
+				}
 			}
+			if(Statics.arcade)
+			{
+				if(time%60==0)
+				{
+					
+					timeSec--;
+				}
+			}
+			
+			
 			
 			if(!obj1.ifMovedOffScreen())
 				obj1.move();
@@ -1145,8 +1196,6 @@ public class Play extends BasicGameState{
 					
 			
 		}
-		
-		
 	
 	}
 
