@@ -116,66 +116,21 @@ public class GameController {
 	        DocumentBuilder dBuilder;
 			dBuilder = dbFactory.newDocumentBuilder();
 		    Document doc = dBuilder.newDocument();
-
-	         // root element
 		    Element rootElement = doc.createElement("FruitNinja");
             doc.appendChild(rootElement);
-		    
-		    
-		    
-        	Element BananaScore = doc.createElement("HighScore");
-            rootElement.appendChild(BananaScore);
-            
+        	Element Score = doc.createElement("HighScore");
+            rootElement.appendChild(Score);
             Attr attrType = doc.createAttribute("score");
             attrType.setValue(Integer.toString(player.getHighScore()));
-            
-            BananaScore.setAttributeNode(attrType);
-            
-            
+            Score.setAttributeNode(attrType);
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
             StreamResult result = new StreamResult(new File("Fruit Ninja.xml"));
             transformer.transform(source, result);
-            // Output to console for testing
             StreamResult consoleResult = new StreamResult(System.out);
             transformer.transform(source, consoleResult);
-            
-          /*  Element PeachScore = doc.createElement("HighScorePeach");
-            rootElement.appendChild(PeachScore);
-            
-            Attr attrType1 = doc.createAttribute("score");
-            attrType1.setValue(Integer.toString(highScorePeach));
-            
-            PeachScore.setAttributeNode(attrType1);
-            
-            
-            
-            
-            
-            
-            Element MelonScore = doc.createElement("HighScoreMelon");
-            rootElement.appendChild(MelonScore);
-            
-            Attr attrType2 = doc.createAttribute("score");
-            attrType2.setValue(Integer.toString(highScoreMelon));
-            
-            MelonScore.setAttributeNode(attrType2);
-            
-            
-            
-            
-            Element ArcadeScore = doc.createElement("HighScoreArcade");
-            rootElement.appendChild(ArcadeScore);
-            
-            Attr attrType3 = doc.createAttribute("score");
-            attrType3.setValue(Integer.toString(highScoreArcade));
-	         
-            ArcadeScore.setAttributeNode(attrType3);
-	         
-	         
-	         */
-	         
+           
 	         
 	         
 		} catch (ParserConfigurationException e) {
@@ -195,49 +150,15 @@ public class GameController {
 		try {
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document doc = builder.parse("Fruit Ninja.xml");
-			//NodeList CrossersOnLeftList = doc.getElementsByTagName("CrossersOnLeft");
-			
 			NodeList score1 = doc.getElementsByTagName("HighScore");
 			Node score= score1.item(0); 
 		
 				if(score.getNodeType()==Node.ELEMENT_NODE) {
 					Element s = (Element) score;
 					 player.setHighScore( Integer.parseInt( s.getAttribute("score")));
-					System.out.println("High Score Banana = " + player.getHighScore());
+					
 			}
-				
-				
-				/*NodeList score2 = doc.getElementsByTagName("HighScorePeach");
-				Node score22= score2.item(0); 
 			
-					if(score.getNodeType()==Node.ELEMENT_NODE) {
-						Element s = (Element) score22;
-						highScoreBanana = Integer.parseInt( s.getAttribute("score"));
-						System.out.println("High Score Peach = " + highScorePeach);
-				}	
-				
-					
-					
-					NodeList score3 = doc.getElementsByTagName("HighScoreMelon");
-					Node score33= score3.item(0); 
-				
-						if(score.getNodeType()==Node.ELEMENT_NODE) {
-							Element s = (Element) score33;
-							highScoreBanana = Integer.parseInt( s.getAttribute("score"));
-							System.out.println("High Score Melon = " + highScoreMelon);
-					}	
-			
-						
-						
-						
-						NodeList score4 = doc.getElementsByTagName("HighScoreArcade");
-						Node score44= score4.item(0); 					
-							if(score.getNodeType()==Node.ELEMENT_NODE) {
-								Element s = (Element) score44;
-								highScoreBanana = Integer.parseInt( s.getAttribute("score"));
-								System.out.println("High Score Arcade = " + highScoreArcade);
-						}	*/
-		
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

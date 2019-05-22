@@ -3,6 +3,7 @@ package GUI;
 import java.io.IOException;
 import java.util.Timer;
 
+import org.lwjgl.input.Cursor;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
@@ -110,7 +111,7 @@ public class Play extends BasicGameState{
 	public Play(int id) {
 		// TODO Auto-generated constructor stub
 	}
-	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
+	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		background=new Image("data/background.jpg");
 		backgroundIce=new Image("data/backgroundicy.png");
 		livesLabel=new Image("data/lives.png");
@@ -183,6 +184,7 @@ public class Play extends BasicGameState{
 		roman=new Image("data/roman.png");
 		mango=new Image("data/mango.png");
 		dragon=new Image("data/dragonfruit.png");
+		gc.setMouseCursor(new Image("data/kunai.png"), 0, 0);
 		
 		applesliced=new Image("data/applesliced.png");
 		fatalexplosion=new Image("data/explosion2.png");

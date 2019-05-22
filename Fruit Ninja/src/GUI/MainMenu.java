@@ -55,7 +55,7 @@ public class MainMenu extends BasicGameState{
 		rookie=new Image("data/rookie.png");
 		arcade=new Image("data/arcade.png");
 		amateur=new Image("data/amateur.png");
-		master=new Image("data/master.png");	
+		master=new Image("data/master.png");
 		
 	}
 
